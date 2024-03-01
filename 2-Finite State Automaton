@@ -1,0 +1,58 @@
+class State:
+  def __init__(self, name, is_final=False):
+    self.name = name
+    self.is_final = is_final
+    self.transitions = {}
+
+  def add_transition(self, char, next_state):
+    self.transitions[char] = next_state
+
+  def __str__(self):
+    return f"State: {self.name}, Final: {self.is_final}"
+
+class FiniteAutomata:
+  def __init__(self):
+    self.states = {}
+    self.start_state = None
+
+  def add_state(self, name, is_final=False):
+    state = State(name, is_final)
+    self.states[name] = state
+    if not self.start_state:
+      self.start_state = state
+
+  def add_transition(self, source_state, char, target_state):
+    if source_state not in self.states:
+      raise ValueError(f"Source state '{source_state}' does not exist")
+    if target_state not in self.states:
+      raise ValueError(f"Target state '{target_state}' does not exist")
+    self.states[source_state].add_transition(char, target_state)
+
+  def run(self, string):
+    current_state = self.start_state
+    for char in string:
+      if char not in current_state.transitions:
+        return False
+      current_state = current_state.transitions[char]
+    return current_state.is_final
+
+# Create the states
+q0 = State("q0")
+q1 = State("q1")
+q2 = State("q2", True)  # Final state
+
+# Create the automaton
+fa = FiniteAutomata()
+fa.add_state(q0)
+fa.add_state(q1)
+fa.add_state(q2)
+
+# Add transitions
+fa.add_transition(q0, "a", q1)
+fa.add_transition(q1, "b", q2)
+
+# Test the automaton
+strings = ["ab", "aab", "baba", "abc"]
+for string in strings:
+  result = fa.run(string)
+  print(f"String '{string}': {result}")
