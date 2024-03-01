@@ -1,0 +1,5 @@
+1. Write program demonstrates how to use regular expressions in Python to match and search for patterns in text.
+2. Implement a basic finite state automaton that recognizes a specific language or pattern. In this example, we'll create a simple automaton to match strings ending with 'ab' using python.
+3. Write program demonstrates how to perform morphological analysis using the NLTK library in Python.
+4. Implement a finite-state machine for morphological parsing. In this example, we'll create a simple machine to generate plural forms of English nouns using python.
+5. Use the Porter Stemmer algorithm to perform word stemming on a list of words using python libraries.
