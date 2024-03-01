@@ -1,0 +1,21 @@
+import re
+
+# Sample text
+text = """This is a sample text containing 
+different patterns like phone numbers (123)456-7890, 
+emails (user@example.com), and websites (www.google.com)."""
+
+# Matching phone numbers
+phone_pattern = r"\(\d{3}\) \d{3}-\d{4}"
+phone_matches = re.findall(phone_pattern, text)
+print("Phone numbers:", phone_matches)
+
+# Matching emails
+email_pattern = r"[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
+email_matches = re.findall(email_pattern, text)
+print("Emails:", email_matches)
+
+# Matching websites
+website_pattern = r"www\.[a-zA-Z0-9]+\.[a-z]{2,}"
+website_matches = re.findall(website_pattern, text)
+print("Websites:", website_matches)
