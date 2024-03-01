@@ -1,0 +1,31 @@
+import nltk
+
+# Download necessary resources
+nltk.download("punkt")
+nltk.download("wordnet")
+
+# Sample text
+text = "The runners were quickly gaining on the leader."
+
+# Tokenize the text (split into words)
+tokens = nltk.word_tokenize(text)
+
+# Part-of-speech (POS) tagging
+pos_tags = nltk.pos_tag(tokens)
+
+# Print POS tags
+print("POS Tags:", pos_tags)
+
+# Lemma (base form) extraction
+lemmatizer = nltk.WordNetLemmatizer()
+lemmas = [lemmatizer.lemmatize(word) for word, _ in pos_tags]
+
+# Print lemmas
+print("Lemmas:", lemmas)
+
+# Stemming (alternative to lemmatization)
+stemmer = nltk.PorterStemmer()
+stems = [stemmer.stem(word) for word, _ in pos_tags]
+
+# Print stems
+print("Stems:", stems)
