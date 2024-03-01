@@ -1,0 +1,14 @@
+from nltk.stem import PorterStemmer
+
+# Define list of words
+words = ["running", "jumps", "increases", "jumps", "walked", "walk", "wrote", "writing"]
+
+# Create a PorterStemmer object
+stemmer = PorterStemmer()
+
+# Stem each word in the list
+stemmed_words = [stemmer.stem(word) for word in words]
+
+# Print the original and stemmed words
+print("Original Words:", words)
+print("Stemmed Words:", stemmed_words)
