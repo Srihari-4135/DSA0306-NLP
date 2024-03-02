@@ -1,0 +1,26 @@
+import random
+
+# Define a dictionary of word probabilities for each possible POS tag
+word_tag_probs = {
+  "the": {"DT": 0.8, "JJ": 0.1, "VBZ": 0.1},
+  "brown": {"JJ": 0.9, "NN": 0.1},
+  "jumps": {"VBZ": 0.95, "NN": 0.05},
+  # Add more words and probabilities as needed
+}
+
+# Function to assign a POS tag based on word and tag probabilities
+def assign_tag(word):
+  if word not in word_tag_probs:
+    # Handle unknown words with a default tag
+    return "NN"
+  total_prob = sum(word_tag_probs[word].values())
+  probs = [word_tag_probs[word][tag] / total_prob for tag in word_tag_probs[word]]
+  return random.choices(list(word_tag_probs[word].keys()), weights=probs)[0]
+
+# Example usage
+text = "The brown fox jumps over the lazy dog."
+tokens = text.split()
+pos_tags = [assign_tag(word) for word in tokens]
+
+print(f"Original text: {text}")
+print(f"POS tags: {pos_tags}")
