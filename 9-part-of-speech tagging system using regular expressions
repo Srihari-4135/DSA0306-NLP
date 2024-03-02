@@ -1,0 +1,28 @@
+import re
+
+# Define a dictionary of regular expressions and corresponding POS tags
+rules = {
+  r"^[A-Z][a-z]+$": "NNP",  # Proper nouns with capital letter at the beginning
+  r"^[a-z]+$": "NN",        # Common nouns (lowercase)
+  r"^\d+$": "CD",            # Cardinal numbers
+  r"^[^\d\s]+$": "JJ",       # Adjectives (excluding numbers and whitespace)
+  r"^(is|are|was|were|am)$": "VBZ", # Present tense be verbs (singular and plural)
+  r"^(has|have|had)$": "VBD",  # Past tense be verbs
+  r"^(in|on|at|to|from|by)$": "IN", # Prepositions
+  r"^\.$": ".",              # Punctuation
+}
+
+# Function to tag a word using the defined rules
+def tag_word(word):
+  for regex, tag in rules.items():
+    if re.match(regex, word):
+      return tag
+  return "NN"  # Default tag for unknown words (can be adjusted)
+
+# Example usage
+text = "The quick brown fox jumps over the lazy dog."
+tokens = text.split()
+pos_tags = [tag_word(word) for word in tokens]
+
+print(f"Original text: {text}")
+print(f"POS tags: {pos_tags}")
