@@ -1,0 +1,16 @@
+import nltk
+
+# Download necessary NLTK resources (download only once)
+nltk.download('punkt')
+
+# Sample text
+text = "The quick brown fox jumps over the lazy dog."
+
+# Tokenize the text into words 
+tokens = nltk.word_tokenize(text)
+
+# Perform POS tagging on the tokens
+pos_tags = nltk.pos_tag(tokens)
+
+# Print the tagged words
+print(pos_tags)
