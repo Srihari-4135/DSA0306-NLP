@@ -1,0 +1,34 @@
+def transform_tag(word, tag, rule):
+  """
+  This function applies a transformation rule to a word and its initial tag.
+
+  Args:
+      word: The word to be tagged.
+      tag: The initial tag of the word.
+      rule: A transformation rule in the format "(original_tag, context, new_tag)"
+
+  Returns:
+      The new tag after applying the rule, or the original tag if the rule doesn't apply.
+  """
+  original_tag, context, new_tag = rule
+  if tag == original_tag and ((context == "any" or context == word) if context else True):
+    return new_tag
+  else:
+    return tag
+
+# Example rule: Change "VB" (verb) to "NN" (noun) if followed by "ing" (gerund)
+rule = ("VB", "ing", "NN")
+
+# Sample text and initial tags
+text = "The walking man is reading a book."
+tokens = text.split()
+initial_tags = ["DT", "NN", "VB", "NN", "DT", "JJ", "NN"]
+
+# Apply transformation rule iteratively
+updated_tags = initial_tags[:]  # Create a copy to avoid modifying the original list
+for i in range(len(tokens)):
+  updated_tags[i] = transform_tag(tokens[i], updated_tags[i], rule)
+
+print(f"Original text: {text}")
+print(f"Initial tags: {initial_tags}")
+print(f"Updated tags after applying rule: {updated_tags}")
