@@ -1,0 +1,56 @@
+import random
+
+def build_bigrams(text):
+  """
+  This function takes a text string and builds a dictionary of bigrams (pairs of consecutive words) and their following words.
+
+  Args:
+      text: A string containing the text to analyze.
+
+  Returns:
+      A dictionary where the keys are bigrams (tuples of consecutive words) and the values are lists of words that follow them in the text.
+  """
+  bigrams = {}
+  tokens = text.split()
+  for i in range(len(tokens) - 1):
+    bigram = (tokens[i], tokens[i + 1])
+    if bigram not in bigrams:
+      bigrams[bigram] = []
+    bigrams[bigram].append(tokens[i + 2])
+  return bigrams
+
+def generate_text(bigrams, start_words, num_words):
+  """
+  This function generates text using the provided bigram model.
+
+  Args:
+      bigrams: A dictionary of bigrams (tuples of consecutive words) and their following words.
+      start_words: A tuple of words to start the generated text (optional).
+      num_words: The number of words to generate.
+
+  Returns:
+      A string containing the generated text.
+  """
+  generated_text = ""
+  if start_words:
+    current_bigram = start_words
+  else:
+    current_bigram = random.choice(list(bigrams.keys()))
+  for i in range(num_words):
+    following_words = bigrams[current_bigram]
+    next_word = random.choice(following_words)
+    generated_text += " " + next_word
+    current_bigram = (current_bigram[1], next_word)
+  return generated_text.strip()
+
+# Example usage
+text = "The quick brown fox jumps over the lazy dog. This is another sentence for the model to learn from."
+bigrams = build_bigrams(text)
+
+# Generate text starting with "The quick"
+generated_text = generate_text(bigrams, ("The", "quick"), 10)
+print(generated_text)
+
+# Generate text without specifying starting words (random start)
+generated_text = generate_text(bigrams, None, 15)
+print(generated_text)
